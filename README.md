@@ -1,7 +1,7 @@
 # qunit-image
 qunit-image is an QUnit addon for comparing images and canvas elements.
 It features various comparison modes and easy customization.
-See it in action on the [test page](http://mathlib.de/en/test) for my mathematical JavaScript library.
+See it in action on the [test page](http://mathlib.de/en/tests) for my mathematical JavaScript library.
 
 
 

@@ -1,0 +1,60 @@
+.qunit-image-wrapper {
+	white-space: normal;
+}
+
+.qunit-image-figure {
+	float: left;
+	margin: 10px 10px 30px 10px;
+}
+
+.qunit-image-figcaption {
+	text-align: center;
+	margin-bottom: 10px; 
+}
+
+
+.qunit-image-img {
+	cursor: crosshair;
+
+	// Absolute position the image, that layerX and layerY 
+	// have there origin in the upper left corner of this element.
+	// Otherwise layerX and layerY are relative to the whole document.
+	position: absolute;
+}
+
+
+.qunit-image-comparisonImage {
+	display: none;
+
+	&.qunit-image-isVisible {
+		display: block;
+	}
+
+}
+
+.qunit-image-absoluteContainer {
+	position: relative;
+
+	& > img {
+		position: absolute;
+		top: 0;
+	}
+}
+ 
+// Clearfix: contain floats
+// from the [HTML5 Boilerplate](https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css)
+.qunit-image-clearfix:before,
+.qunit-image-clearfix:after {
+// 1. The space content is one way to avoid an Opera bug when the
+//    `contenteditable` attribute is included anywhere else in the document.
+//    Otherwise it causes space to appear at the top and bottom of elements
+//    that receive the `clearfix` class.
+    content: " ";
+// 2. The use of `table` rather than `block` is only necessary if using
+//    `:before` to contain the top-margins of child elements.
+    display: table;
+}
+
+.qunit-image-clearfix:after {
+    clear: both;
+}

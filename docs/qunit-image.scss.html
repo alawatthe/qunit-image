@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>qunit-image.scss</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">  
+        <li id="title">
+            <div class="annotation">
+                <h1>qunit-image.scss</h1>
+            </div>
+        </li>
+        
+           
+        <li id="section-1">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>            
+              
+            </div>
+            
+            <div class="content"><div class="highlight"><pre><span class="nc">.qunit-image-wrapper</span> <span class="p">{</span>
+  <span class="na">white-space</span><span class="o">:</span> <span class="no">normal</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.qunit-image-figure</span> <span class="p">{</span>
+  <span class="na">float</span><span class="o">:</span> <span class="no">left</span><span class="p">;</span>
+  <span class="na">margin</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">30</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.qunit-image-figcaption</span> <span class="p">{</span>
+  <span class="na">text-align</span><span class="o">:</span> <span class="no">center</span><span class="p">;</span>
+  <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span> 
+<span class="p">}</span>
+
+
+<span class="nc">.qunit-image-img</span> <span class="p">{</span>
+  <span class="na">cursor</span><span class="o">:</span> <span class="no">crosshair</span><span class="p">;</span></pre></div></div>
+            
+        </li>
+        
+           
+        <li id="section-2">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>            
+              
+<p>Absolute position the image, that layerX and layerY 
+have there origin in the upper left corner of this element.
+TODO: investigate alternatives</p>
+
+            </div>
+            
+            <div class="content"><div class="highlight"><pre>  <span class="na">position</span><span class="o">:</span> <span class="no">absolute</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="nc">.qunit-image-comparisonImage</span> <span class="p">{</span>
+  <span class="na">display</span><span class="o">:</span> <span class="no">none</span><span class="p">;</span>
+
+  <span class="k">&amp;</span><span class="nc">.qunit-image-isVisible</span> <span class="p">{</span>
+    <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="nc">.qunit-image-absoluteContainer</span> <span class="p">{</span>
+  <span class="na">position</span><span class="o">:</span> <span class="no">relative</span><span class="p">;</span>
+
+  <span class="k">&amp;</span> <span class="o">&gt;</span> <span class="nt">img</span> <span class="p">{</span>
+    <span class="na">position</span><span class="o">:</span> <span class="no">absolute</span><span class="p">;</span>
+    <span class="na">top</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+ </pre></div></div>
+            
+        </li>
+        
+           
+        <li id="section-3">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>            
+              
+<p>Clearfix: contain floats
+from the <a href="https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css">HTML5 Boilerplate</a></p>
+
+            </div>
+            
+            <div class="content"><div class="highlight"><pre><span class="nc">.qunit-image-clearfix</span><span class="nd">:before</span><span class="o">,</span>
+<span class="nc">.qunit-image-clearfix</span><span class="nd">:after</span> <span class="p">{</span></pre></div></div>
+            
+        </li>
+        
+           
+        <li id="section-4">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>            
+              
+<ol>
+<li>The space content is one way to avoid an Opera bug when the
+<code>contenteditable</code> attribute is included anywhere else in the document.
+Otherwise it causes space to appear at the top and bottom of elements
+that receive the <code>clearfix</code> class.</li>
+</ol>
+
+            </div>
+            
+            <div class="content"><div class="highlight"><pre>    <span class="na">content</span><span class="o">:</span> <span class="s2">&quot; &quot;</span><span class="p">;</span></pre></div></div>
+            
+        </li>
+        
+           
+        <li id="section-5">
+            <div class="annotation">
+              <div class="pilwrap">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>            
+              
+<ol>
+<li>The use of <code>table</code> rather than <code>block</code> is only necessary if using
+<code>:before</code> to contain the top-margins of child elements.</li>
+</ol>
+
+            </div>
+            
+            <div class="content"><div class="highlight"><pre>    <span class="na">display</span><span class="o">:</span> <span class="n">table</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.qunit-image-clearfix</span><span class="nd">:after</span> <span class="p">{</span>
+    <span class="na">clear</span><span class="o">:</span> <span class="no">both</span><span class="p">;</span>
+<span class="p">}</span>
+
+</pre></div></div>
+            
+        </li>
+        
+    </ul> 
+  </div>
+</body>
+</html>

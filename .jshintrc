@@ -60,11 +60,11 @@
 
 	"maxerr":							100,
 	"globals": {
-			"asyncTest:			true,
-			"JST":					true,
-			"QUnit":				true, 
-			"module":				true,
-			"test":					true
+			"asyncTest":			true,
+			"JST":						true,
+			"QUnit":					true, 
+			"module":					true,
+			"test":						true
 	},
-	"quotmark":					"single"
+	"quotmark":						"single"
 }

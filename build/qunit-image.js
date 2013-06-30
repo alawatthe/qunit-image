@@ -1,7 +1,7 @@
 // qunit-image.js is an QUnit addon for comparing images.
 //
 // ## Version
-// v0.0.1 - 2013-06-23  
+// v0.0.1 - 2013-06-30  
 //
 // ## License
 // Copyright © 2013 Alexander Zeilmann  

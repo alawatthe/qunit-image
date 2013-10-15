@@ -2,18 +2,20 @@ asyncTest('Comparing two jpgs to themselves (should pass)', 1, function (assert)
 	assert.imageEqual('../test/1_normal.jpg', '../test/1_normal.jpg');
 });
 
-
 asyncTest('Comparing two jpgs to themselves (should pass)', 1, function (assert) {
 	assert.imageEqual('../test/2_transparentPixels.png', '../test/2_transparentPixels.png');
 });
 
+asyncTest('Comparing jpg to slightly changed one, passing custom options (should pass)', 1, function (assert) {
+	assert.imageEqual('../test/1_normal_(1).jpg', '../test/1_normal.jpg', {imageDistance: 2});
+});
+
+
+
+// The following tests SHOULD fail
 
 asyncTest('Comparing jpg to slightly changed one (should fail)', 1, function (assert) {
 	assert.imageEqual('../test/1_normal_(1).jpg', '../test/1_normal.jpg');
-});
-
-asyncTest('Comparing jpg to slightly changed one, passing custom options (should pass)', 1, function (assert) {
-	assert.imageEqual('../test/1_normal_(1).jpg', '../test/1_normal.jpg', {imageDistance: 2});
 });
 
 asyncTest('Comparing jpg to slightly changed one (should fail)', 1, function (assert) {

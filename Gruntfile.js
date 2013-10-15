@@ -17,6 +17,31 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-lodashbuilder');
 	grunt.loadNpmTasks('grunt-notify');
 
+
+	grunt.registerTask('template', 'A simple task to convert HTML templates', function() {
+		var template = grunt.file.read('src/qunit-image.hbs'),
+			process = function(template) {
+				var str = 'var template = function (data) {';
+
+				str += "var p = [];"
+				str += "p.push('" +
+				template.replace(/[\r\t\n]/g, ' ')                                   // remove linebreaks etc.
+								.replace(/\{\{!--[^\}]*--\}\}/g, '')                         // remove comments
+								.replace(/\{\{#if ([^\}]*)\}\}/g, "');if(data.$1){p.push('") // opening if
+								.replace(/\{\{\/if\}\}/g, "');}p.push('")                    // closing if
+								.replace(/\{\{/g, "');p.push(data.")
+								.replace(/\}\}/g, ");p.push('") +
+				"');" +
+				'return p.join("");}';
+
+				return str;
+			};
+
+		grunt.file.write('src/template.js', process(template));
+		grunt.log.writeln('template.js created successfully');
+	});
+
+
 	var banner = '/*! qunit-image v<%= pkg.version %> MathLib.de | MathLib.de/en/license */';
 
 	grunt.initConfig({
@@ -25,7 +50,7 @@ module.exports = function (grunt) {
 
 		concat: {
 			qunit_image: {
-				src: ['src/qunit-image.js', 'src/template.js', 'src/lodash.custom.js'],
+				src: ['src/template.js', 'src/qunit-image.js'],
 				dest: 'build/qunit-image.js',
 				options: {
 					banner: '// qunit-image.js is an QUnit addon for comparing images.\n' +
@@ -37,10 +62,11 @@ module.exports = function (grunt) {
 									'// Copyright © <%= grunt.template.today("yyyy") %> Alexander Zeilmann  \n' +
 									'// qunit-image.js is [licensed under the MIT license](<http://MathLib.de/en/license>)\n' +
 									'//\n' +
-									'// Includes a custom build of Lo-Dash (published under the MIT license).\n' +
-									'//\n' +
 									'// ## Documentation\n' +
-									'// The source code is annotated using [Docco](https://github.com/jashkenas/docco "View Docco on GitHub")\n'
+									'// The source code is annotated using [Docco](https://github.com/jashkenas/docco "View Docco on GitHub")\n\n' +
+									'(function () {\n',
+					sepatator: '\n\n',
+					footer: '})()'
 				}
 			}
 		},
@@ -97,29 +123,6 @@ module.exports = function (grunt) {
 		},
 
 
-
-		// Lo-Dash
-		lodash: {
-			include: ['template'],
-			dest: 'src/lodash.js'
-		},
-
-
-		// HTML Template
-		jst: {
-			compile: {
-				options: {
-					templateSettings: {
-						interpolate : /\{\{(.+?)\}\}/g
-					}
-				},
-				files: {
-					'src/template.js': ['src/qunit-image.hbs']
-				}
-			}
-		},
-
-
 		// SCSS
 		compass: {
 			qunit_image: {
@@ -145,7 +148,7 @@ module.exports = function (grunt) {
 			},
 			hbs: {
 				files: ['src/qunit-image.hbs'],
-				tasks: ['jst', 'concat', 'uglify']
+				tasks: ['template', 'concat', 'uglify']
 			}
 		},
 
@@ -169,6 +172,6 @@ module.exports = function (grunt) {
 	});
 
 
-	grunt.registerTask('default', ['jst', 'concat', 'uglify']);
+	grunt.registerTask('default', ['template', 'concat', 'uglify']);
 	grunt.registerTask('release', ['default', 'compass', 'cssmin', 'jshint', 'csslint', 'docco']);
 };

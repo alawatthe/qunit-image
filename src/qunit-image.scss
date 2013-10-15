@@ -22,6 +22,10 @@
 	position: absolute;
 }
 
+.qunit-image-marginTop {
+	margin-top: 27px
+}
+
 
 .qunit-image-comparisonImage {
 	display: none;
@@ -29,8 +33,22 @@
 	&.qunit-image-isVisible {
 		display: block;
 	}
-
 }
+
+.qunit-image-slider {
+	margin-left: 0;
+}
+
+.qunit-image-colorTable {
+	margin: 20px;
+
+	& th, & td {
+		width: 100px;
+		height: 20px;
+		text-align: right;
+	}
+}
+
 
 .qunit-image-absoluteContainer {
 	position: relative;

@@ -1,25 +1,25 @@
 <div class="qunit-image-wrapper">
 	<div>
-		Testing a {{width}}px by {{height}}px image ({{height * width}} total pixels, {{width * height * 4}} channels).
+		Testing a {{width}}px by {{height}}px image ({{numPixels}} total pixels, {{numChannels}} channels).
 	</div>
 	<div>
-		There were errors on {{channelErrors}} channels ({{(25 * channelErrors / (width * height)).toFixed(3)}}%).
+		There were errors on {{channelErrors}} channels ({{channelErrorsPercent}}%).
 	</div>
 	<div>
 		The very primitive accumulated rgba-distance of the images is {{imageDistance}}.
 	</div>
 	<div class="qunit-image-clearfix">
-		<div style="width:{{width}}px; height:{{height}}px;" class="qunit-image-figure">
+		<div style="width:{{width}}px; height:{{containerHeight}}px;" class="qunit-image-figure">
 			<div class="qunit-image-figcaption">The actual image</div>
-			<img class="qunit-image-img" src="{{actCanvas}}" width="{{width}}px" height="{{height}}px" data-id="{{id}}"/>
+			<img class="qunit-image-img qunit-image-marginTop" src="{{actCanvas}}" width="{{width}}px" height="{{imageHeight}}px" data-id="{{id}}"/>
 		</div>
 
-		<div style="width:{{width}}px; height:{{height}}px;" class="qunit-image-figure">
+		<div style="width:{{width}}px; height:{{containerHeight}}px;" class="qunit-image-figure">
 			<div class="qunit-image-figcaption">The reference image</div>
-			<img class="qunit-image-img" src="{{expCanvas}}" width="{{width}}px" height="{{height}}px" data-id="{{id}}"/>
+			<img class="qunit-image-img qunit-image-marginTop" src="{{expCanvas}}" width="{{width}}px" height="{{imageHeight}}px" data-id="{{id}}"/>
 		</div>
 
-		<div style="width:{{width}}px; height:{{height}}px;" class="qunit-image-figure">
+		<div style="width:{{width}}px; height:{{containerHeight}}px;" class="qunit-image-figure">
 			<div class="qunit-image-figcaption">
 				<select class="qunit-image-select">
 					<option value="0">difference heatmap</option>
@@ -29,36 +29,36 @@
 			</div>
 
 			<div>
-				<img src="{{diffCanvas}}" class="qunit-image-img qunit-image-comparisonImage qunit-image-isVisible" width="{{width}}px" height="{{height}}px" data-id="{{id}}"/>
+				<img src="{{diffCanvas}}" class="qunit-image-img qunit-image-comparisonImage qunit-image-isVisible qunit-image-marginTop" width="{{width}}px" height="{{imageHeight}}px" data-id="{{id}}"/>
 
 				<div class="qunit-image-comparisonImage">
-					<input type="range" min="0" max="{{width}}" class="qunit-image-range-clip" style="width:{{width}}px;">
-					<div class="qunit-image-absoluteContainer" style="width:{{width}}px; height:{{height}}px">
-						<img class="qunit-image-img" src="{{actCanvas}}" width="{{width}}px" height="{{height}}px"
+					<input type="range" min="0" max="{{width}}" class="qunit-image-slider qunit-image-range-clip" style="width:{{width}}px;">
+					<div class="qunit-image-absoluteContainer" style="width:{{width}}px; height:{{imageHeight}}px">
+						<img class="qunit-image-img" src="{{actCanvas}}" width="{{width}}px" height="{{imageHeight}}px"
 									style="clip: rect(0px, {{width}}px, {{height}}px, {{width / 2}}px)" data-id="{{id}}"/>
-						<img class="qunit-image-img" src="{{expCanvas}}" width="{{width}}px" height="{{height}}px"
+						<img class="qunit-image-img" src="{{expCanvas}}" width="{{width}}px" height="{{imageHeight}}px"
 									style="clip: rect(0px, {{width / 2}}px, {{height}}px, 0px)" data-id="{{id}}"/>
 					</div>
 				</div>
 
 				<div class="qunit-image-comparisonImage">
 					<input type="range" min="0" max="1" step="0.01" class="qunit-image-range-opacity" style="width:{{width}}px;">
-					<div class="qunit-image-absoluteContainer" style="width:{{width}}px; height:{{height}}px">
-						<img class="qunit-image-img" src="{{actCanvas}}" width="{{width}}px" height="{{height}}px" style="opacity: 0.5" data-id="{{id}}"/>
-						<img class="qunit-image-img" src="{{expCanvas}}" width="{{width}}px" height="{{height}}px" style="opacity: 0.5" data-id="{{id}}"/>
+					<div class="qunit-image-absoluteContainer" style="width:{{width}}px; height:{{imageHeight}}px">
+						<img class="qunit-image-img" src="{{actCanvas}}" width="{{width}}px" height="{{imageHeight}}px" style="opacity: 0.5" data-id="{{id}}"/>
+						<img class="qunit-image-img" src="{{expCanvas}}" width="{{width}}px" height="{{imageHeight}}px" style="opacity: 0.5" data-id="{{id}}"/>
 					</div>
 				</div>
 			</div>
 		</div>
 
 
-		<div id="qunit-image-pixelComparison-{{id}}" style="width:{{width}}px; height:{{height}}px;" class="qunit-image-figure">
+		<div id="qunit-image-pixelComparison-{{id}}" style="width:{{width}}px; height:{{containerHeight}}px;" class="qunit-image-figure">
 			<div>
 				Hover one of the images to get a pixel comparison.
 			</div>
 			<div style="display: none">
-				At the currently selected Coordinate (<span class="qunit-image-xCoordinate"></span>,<span class="qunit-image-yCoordinate"></span>) the following colors are found:
-				<table>
+				At the currently hovered coordinate (<span class="qunit-image-xCoordinate"></span>, <span class="qunit-image-yCoordinate"></span>) the following colors are found:
+				<table class="qunit-image-colorTable">
 					<thead>
 						<tr>
 							<th></th>
@@ -68,27 +68,27 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>R</td>
+							<td>Red</td>
 							<td class="qunit-image-table-rAct"></td>
 							<td class="qunit-image-table-rExp"></td>
 						</tr>
 						<tr>
-							<td>G</td>
+							<td>Green</td>
 							<td class="qunit-image-table-gAct"></td>
 							<td class="qunit-image-table-gExp"></td>
 						</tr>
 						<tr>
-							<td>B</td>
+							<td>Blue</td>
 							<td class="qunit-image-table-bAct"></td>
 							<td class="qunit-image-table-bExp"></td>
 						</tr>
 						<tr>
-							<td>A</td>
+							<td>Alpha</td>
 							<td class="qunit-image-table-aAct"></td>
 							<td class="qunit-image-table-aExp"></td>
 						</tr>
 						<tr>
-							<td>=</td>
+							<td></td>
 							<td class="qunit-image-table-act"></td>
 							<td class="qunit-image-table-exp"></td>
 						</tr>

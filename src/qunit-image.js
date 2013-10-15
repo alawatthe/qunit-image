@@ -83,11 +83,15 @@ QUnit.extend(QUnit.assert, {
 
 
 			// Generate the HTML with the template
-			message = JST['src/qunit-image.hbs']({
+			message = template({
 				id: window.qunitImage.id,
 				width: width,
-				height: height,
+				imageHeight: height,
+				containerHeight: height + 30,
+				numPixels: height * width,
+				numChannels: 4 * height * width,
 				channelErrors: channelErrors,
+				channelErrorsPercent: (25 * channelErrors / (width * height)).toFixed(3),
 				imageDistance: imageDistance,
 				actCanvas: actCanvas.toDataURL(),
 				expCanvas: expCanvas.toDataURL(),

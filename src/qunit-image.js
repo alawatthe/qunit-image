@@ -136,6 +136,14 @@ QUnit.extend(QUnit.assert, {
 
 		// Now let's load the images/canvas elements
 		// First the actual image (the one to be tested)
+		
+		// convert SVG object to strings
+		if (actual.toString() === '[object SVGSVGElement]') {
+			actual = (new XMLSerializer()).serializeToString(actual);
+		}
+
+		// Load images given by path or with a data url
+		// and draw them on a canvas.
 		if (typeof actual === 'string') {
 
 			actImage = new Image();
@@ -157,12 +165,18 @@ QUnit.extend(QUnit.assert, {
 				}
 			};
 
+			// Convert an SVG string to a data url
+			if (actual.startsWith('<svg')) {
+				actual = 'data:image/svg+xml;base64,' + btoa(actual);
+			}
+
 			// Start loading the image
 			actImage.src = actual;
 		}
 
-		// Else "actual" should be a canvas
-		else {
+
+		// If the image is given as canvas we don't need to load something
+		else if (actual.toString() === '[object HTMLCanvasElement]') {
 			actCanvas = actual;
 			actCtx = actCanvas.getContext('2d');			
 
@@ -177,10 +191,24 @@ QUnit.extend(QUnit.assert, {
 			}
 		}
 
+		// Notify the user that an unsupported argument has been passed as first argument
+		else {
+			QUnit.start();
+			QUnit.config.current.assertions.push({
+				result: false,
+				message: 'Expected string, Canvas or SVG element in the "actual" argument but found: ' + 
+					Object.prototype.toString.call(actual).slice(8, -1)
+			});
+		}
+
 
 		// And the expected image
-		if (typeof expected === 'string') {
+		// Everything is the same as above
+		if (expected.toString() === '[object SVGSVGElement]') {
+			expected = (new XMLSerializer()).serializeToString(expected);
+		}
 
+		if (typeof expected === 'string') {
 			expImage = new Image();
 			expImage.onload = function () {
 				expCanvas.height = height;
@@ -198,10 +226,13 @@ QUnit.extend(QUnit.assert, {
 					allImagesLoaded = true;
 				}
 			};
+			if (expected.startsWith('<svg')) {
+				expected = 'data:image/svg+xml;base64,' + btoa(expected);
+			}
 			expImage.src = expected;
-
 		}
-		else {
+
+		else if (expected.toString() === '[object HTMLCanvasElement]') {
 			expCanvas = expected;
 			expCtx = expCanvas.getContext('2d');
 
@@ -215,6 +246,15 @@ QUnit.extend(QUnit.assert, {
 				allImagesLoaded = true;
 			}
 		}
+
+		else {
+			QUnit.config.current.assertions.push({
+				result: false,
+				message: 'Expected string, Canvas or SVG element in the "expected" argument but found: ' + 
+					Object.prototype.toString.call(expected).slice(8, -1)
+			});
+		}
+
 	}
 });
 

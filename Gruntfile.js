@@ -14,16 +14,16 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.loadNpmTasks('grunt-docco');
-	grunt.loadNpmTasks('grunt-lodashbuilder');
+	grunt.loadNpmTasks('grunt-jscs-checker');
 	grunt.loadNpmTasks('grunt-notify');
 
 
-	grunt.registerTask('template', 'A simple task to convert HTML templates', function() {
+	grunt.registerTask('template', 'A simple task to convert HTML templates', function () {
 		var template = grunt.file.read('src/qunit-image.hbs'),
-			process = function(template) {
+			process = function (template) {
 				var str = 'var template = function (data) {';
 
-				str += "var p = [];"
+				str += "var p = [];";
 				str += "p.push('" +
 				template.replace(/[\r\t\n]/g, ' ')                                   // remove linebreaks etc.
 								.replace(/\{\{!--[^\}]*--\}\}/g, '')                         // remove comments
@@ -82,6 +82,34 @@ module.exports = function (grunt) {
 			all: ['Gruntfile.js', 'src/qunit-image.js'],
 			options: {
 				jshintrc: '.jshintrc'
+			}
+		},
+
+
+		jscs: {
+			qunitImage: {
+				options: {
+					config: '.jscs.json',
+				},
+				files: {
+					src: ['build/qunit-image.js']
+				}
+			},
+			Tests: {
+				options: {
+					config: '.jscs.json',
+				},
+				files: {
+					src: ['test/qunit-image.test.js']
+				}
+			},
+			Grunt: {
+				options: {
+					config: '.jscs.json',
+				},
+				files: {
+					src: ['Gruntfile.js']
+				}
 			}
 		},
 
@@ -173,5 +201,5 @@ module.exports = function (grunt) {
 
 
 	grunt.registerTask('default', ['template', 'concat', 'uglify']);
-	grunt.registerTask('release', ['default', 'compass', 'cssmin', 'jshint', 'csslint', 'docco']);
+	grunt.registerTask('release', ['default', 'compass', 'cssmin', 'jshint', 'jscs', 'csslint', 'docco']);
 };

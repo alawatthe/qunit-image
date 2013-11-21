@@ -64,7 +64,7 @@
 			"JST":						true,
 			"QUnit":					true, 
 			"module":					true,
+			"template":				true,
 			"test":						true
-	},
-	"quotmark":						"single"
+	}
 }

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>qunit-image.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>qunit-image.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>qunit-image.js is an QUnit addon for comparing images.</p>
+<h2>Version</h2>
+<p>v0.0.2 - 2013-12-09  </p>
+<h2>License</h2>
+<p>Copyright © 2013 Alexander Zeilmann<br>qunit-image.js is <a href="http://MathLib.de/en/license">licensed under the MIT license</a></p>
+<h2>Documentation</h2>
+<p>The source code is annotated using <a href="https://github.com/jashkenas/docco" title="View Docco on GitHub">Docco</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+<span class="keyword">var</span> template = <span class="function"><span class="keyword">function</span> <span class="params">(data)</span> {</span><span class="keyword">var</span> p = [];p.push(<span class="string">'&lt;div class="qunit-image-wrapper"&gt;  &lt;div&gt;   Testing a '</span>);p.push(data.width);p.push(<span class="string">'px by '</span>);p.push(data.height);p.push(<span class="string">'px image ('</span>);p.push(data.numPixels);p.push(<span class="string">' total pixels, '</span>);p.push(data.numChannels);p.push(<span class="string">' channels).  &lt;/div&gt;  &lt;div&gt;   There were errors on '</span>);p.push(data.channelErrors);p.push(<span class="string">' channels ('</span>);p.push(data.channelErrorsPercent);p.push(<span class="string">'%).  &lt;/div&gt;  &lt;div&gt;   The very primitive accumulated rgba-distance of the images is '</span>);p.push(data.imageDistance);p.push(<span class="string">'.  &lt;/div&gt;  &lt;div class="qunit-image-clearfix"&gt;   &lt;div style="width:'</span>);p.push(data.width);p.push(<span class="string">'px; height:'</span>);p.push(data.containerHeight);p.push(<span class="string">'px;" class="qunit-image-figure"&gt;    &lt;div class="qunit-image-figcaption"&gt;The actual image&lt;/div&gt;    &lt;img class="qunit-image-img qunit-image-marginTop" src="'</span>);p.push(data.actCanvas);p.push(<span class="string">'" width="'</span>);p.push(data.width);p.push(<span class="string">'px" height="'</span>);p.push(data.imageHeight);p.push(<span class="string">'px" data-id="'</span>);p.push(data.id);p.push(<span class="string">'"/&gt;   &lt;/div&gt;    &lt;div style="width:'</span>);p.push(data.width);p.push(<span class="string">'px; height:'</span>);p.push(data.containerHeight);p.push(<span class="string">'px;" class="qunit-image-figure"&gt;    &lt;div class="qunit-image-figcaption"&gt;The reference image&lt;/div&gt;    &lt;img class="qunit-image-img qunit-image-marginTop" src="'</span>);p.push(data.expCanvas);p.push(<span class="string">'" width="'</span>);p.push(data.width);p.push(<span class="string">'px" height="'</span>);p.push(data.imageHeight);p.push(<span class="string">'px" data-id="'</span>);p.push(data.id);p.push(<span class="string">'"/&gt;   &lt;/div&gt;    &lt;div style="width:'</span>);p.push(data.width);p.push(<span class="string">'px; height:'</span>);p.push(data.containerHeight);p.push(<span class="string">'px;" class="qunit-image-figure"&gt;    &lt;div class="qunit-image-figcaption"&gt;     &lt;select class="qunit-image-select"&gt;      &lt;option value="0"&gt;difference heatmap&lt;/option&gt;      &lt;option value="1"&gt;clip slider&lt;/option&gt;      &lt;option value="2"&gt;opacity slider&lt;/option&gt;     &lt;/select&gt;    &lt;/div&gt;     &lt;div&gt;     &lt;img src="'</span>);p.push(data.diffCanvas);p.push(<span class="string">'" class="qunit-image-img qunit-image-comparisonImage qunit-image-isVisible qunit-image-marginTop" width="'</span>);p.push(data.width);p.push(<span class="string">'px" height="'</span>);p.push(data.imageHeight);p.push(<span class="string">'px" data-id="'</span>);p.push(data.id);p.push(<span class="string">'"/&gt;      &lt;div class="qunit-image-comparisonImage"&gt;      &lt;input type="range" min="0" max="'</span>);p.push(data.width);p.push(<span class="string">'" class="qunit-image-slider qunit-image-range-clip" style="width:'</span>);p.push(data.width);p.push(<span class="string">'px;"&gt;      &lt;div class="qunit-image-absoluteContainer" style="width:'</span>);p.push(data.width);p.push(<span class="string">'px; height:'</span>);p.push(data.imageHeight);p.push(<span class="string">'px"&gt;       &lt;img class="qunit-image-img" src="'</span>);p.push(data.actCanvas);p.push(<span class="string">'" width="'</span>);p.push(data.width);p.push(<span class="string">'px" height="'</span>);p.push(data.imageHeight);p.push(<span class="string">'px"          style="clip: rect(0px, '</span>);p.push(data.width);p.push(<span class="string">'px, '</span>);p.push(data.height);p.push(<span class="string">'px, '</span>);p.push(data.width / <span class="number">2</span>);p.push(<span class="string">'px)" data-id="'</span>);p.push(data.id);p.push(<span class="string">'"/&gt;       &lt;img class="qunit-image-img" src="'</span>);p.push(data.expCanvas);p.push(<span class="string">'" width="'</span>);p.push(data.width);p.push(<span class="string">'px" height="'</span>);p.push(data.imageHeight);p.push(<span class="string">'px"          style="clip: rect(0px, '</span>);p.push(data.width / <span class="number">2</span>);p.push(<span class="string">'px, '</span>);p.push(data.height);p.push(<span class="string">'px, 0px)" data-id="'</span>);p.push(data.id);p.push(<span class="string">'"/&gt;      &lt;/div&gt;     &lt;/div&gt;      &lt;div class="qunit-image-comparisonImage"&gt;      &lt;input type="range" min="0" max="1" step="0.01" class="qunit-image-range-opacity" style="width:'</span>);p.push(data.width);p.push(<span class="string">'px;"&gt;      &lt;div class="qunit-image-absoluteContainer" style="width:'</span>);p.push(data.width);p.push(<span class="string">'px; height:'</span>);p.push(data.imageHeight);p.push(<span class="string">'px"&gt;       &lt;img class="qunit-image-img" src="'</span>);p.push(data.actCanvas);p.push(<span class="string">'" width="'</span>);p.push(data.width);p.push(<span class="string">'px" height="'</span>);p.push(data.imageHeight);p.push(<span class="string">'px" style="opacity: 0.5" data-id="'</span>);p.push(data.id);p.push(<span class="string">'"/&gt;       &lt;img class="qunit-image-img" src="'</span>);p.push(data.expCanvas);p.push(<span class="string">'" width="'</span>);p.push(data.width);p.push(<span class="string">'px" height="'</span>);p.push(data.imageHeight);p.push(<span class="string">'px" style="opacity: 0.5" data-id="'</span>);p.push(data.id);p.push(<span class="string">'"/&gt;      &lt;/div&gt;     &lt;/div&gt;    &lt;/div&gt;   &lt;/div&gt;     &lt;div id="qunit-image-pixelComparison-'</span>);p.push(data.id);p.push(<span class="string">'" style="width:'</span>);p.push(data.width);p.push(<span class="string">'px; height:'</span>);p.push(data.containerHeight);p.push(<span class="string">'px;" class="qunit-image-figure"&gt;    &lt;div&gt;     Hover one of the images to get a pixel comparison.    &lt;/div&gt;    &lt;div style="display: none"&gt;     At the currently hovered coordinate (&lt;span class="qunit-image-xCoordinate"&gt;&lt;/span&gt;, &lt;span class="qunit-image-yCoordinate"&gt;&lt;/span&gt;) the following colors are found:     &lt;table class="qunit-image-colorTable"&gt;      &lt;thead&gt;       &lt;tr&gt;        &lt;th&gt;&lt;/th&gt;        &lt;th&gt;actual&lt;/th&gt;        &lt;th&gt;expected&lt;/th&gt;       &lt;/tr&gt;      &lt;/thead&gt;      &lt;tbody&gt;       &lt;tr&gt;        &lt;td&gt;Red&lt;/td&gt;        &lt;td class="qunit-image-table-rAct"&gt;&lt;/td&gt;        &lt;td class="qunit-image-table-rExp"&gt;&lt;/td&gt;       &lt;/tr&gt;       &lt;tr&gt;        &lt;td&gt;Green&lt;/td&gt;        &lt;td class="qunit-image-table-gAct"&gt;&lt;/td&gt;        &lt;td class="qunit-image-table-gExp"&gt;&lt;/td&gt;       &lt;/tr&gt;       &lt;tr&gt;        &lt;td&gt;Blue&lt;/td&gt;        &lt;td class="qunit-image-table-bAct"&gt;&lt;/td&gt;        &lt;td class="qunit-image-table-bExp"&gt;&lt;/td&gt;       &lt;/tr&gt;       &lt;tr&gt;        &lt;td&gt;Alpha&lt;/td&gt;        &lt;td class="qunit-image-table-aAct"&gt;&lt;/td&gt;        &lt;td class="qunit-image-table-aExp"&gt;&lt;/td&gt;       &lt;/tr&gt;       &lt;tr&gt;        &lt;td&gt;&lt;/td&gt;        &lt;td class="qunit-image-table-act"&gt;&lt;/td&gt;        &lt;td class="qunit-image-table-exp"&gt;&lt;/td&gt;       &lt;/tr&gt;      &lt;/tbody&gt;     &lt;/table&gt;    &lt;/div&gt;   &lt;/div&gt;     &lt;/div&gt; &lt;/div&gt;'</span>);<span class="keyword">return</span> p.join(<span class="string">""</span>);}
+QUnit.extend(QUnit.assert, {
+	imageEqual: <span class="function"><span class="keyword">function</span> <span class="params">(actual, expected, options)</span> {</span>
+
+		options = options || {};
+
+		<span class="keyword">var</span> actCanvas = document.createElement(<span class="string">'canvas'</span>),
+				actImage, actCtx, actData,
+				expCanvas = document.createElement(<span class="string">'canvas'</span>),
+				expImage, expCtx, expData,
+				diffCanvas = document.createElement(<span class="string">'canvas'</span>),
+				diffCtx, diffData,
+				tester,
+				channelErrors = <span class="number">0</span>,
+				imageDistance = <span class="number">0</span>,
+				allImagesLoaded = <span class="literal">false</span>,
+				passed = <span class="literal">true</span>,
+				width = options.width || <span class="number">300</span>,
+				height = options.height || <span class="number">300</span>,
+				max = <span class="number">80</span>,
+				slope = <span class="number">510</span> / max,
+				id = <span class="number">0</span>,
+				message, i, ii, rdiff, gdiff, bdiff, adiff, hue, pixelError;
+
+
+		window.qunitImage = window.qunitImage || {
+			tests: [],
+			id: <span class="number">0</span>
+		};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>This function is running after both images are loaded.
+And is doing the complete testing</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		tester = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+
+			expData = expCtx.getImageData(<span class="number">0</span>, <span class="number">0</span>, width, height).data;
+			actData = actCtx.getImageData(<span class="number">0</span>, <span class="number">0</span>, width, height).data;
+
+			diffCanvas.height = height;
+			diffCanvas.width = width;
+			diffCtx = diffCanvas.getContext(<span class="string">'2d'</span>);
+			diffData = diffCtx.getImageData(<span class="number">0</span>, <span class="number">0</span>, width, height);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>We are using a very primitive comparison algorithm.
+Perhaps I implement a better Delta-E sometime.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="keyword">for</span> (i = <span class="number">0</span>, ii = <span class="number">4</span> * width * height; i &lt; ii; i += <span class="number">4</span>) {
+				rdiff = Math.abs(expData[i]     - actData[i]);
+				gdiff = Math.abs(expData[i + <span class="number">1</span>] - actData[i + <span class="number">1</span>]);
+				bdiff = Math.abs(expData[i + <span class="number">2</span>] - actData[i + <span class="number">2</span>]);
+				adiff = Math.abs(expData[i + <span class="number">3</span>] - actData[i + <span class="number">3</span>]);
+
+				pixelError = rdiff + gdiff + bdiff + adiff;
+				imageDistance += pixelError;
+				channelErrors += !!rdiff + !!gdiff + !!bdiff + !!adiff;
+
+				hue = slope * Math.min(max, pixelError);
+
+				diffData.data[i]     = Math.min(<span class="number">255</span>, hue);
+				diffData.data[i + <span class="number">1</span>] = Math.min(<span class="number">255</span>, <span class="number">510</span> - hue);
+				diffData.data[i + <span class="number">2</span>] = <span class="number">0</span>;
+				diffData.data[i + <span class="number">3</span>] = <span class="number">255</span>;
+			}
+
+			diffCtx.putImageData(diffData, <span class="number">0</span>, <span class="number">0</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Decide if the test should fail or pass</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="keyword">if</span> (<span class="string">'imageDistance'</span> <span class="keyword">in</span> options || <span class="string">'channelErrors'</span> <span class="keyword">in</span> options) {
+				<span class="keyword">if</span> (<span class="string">'imageDistance'</span> <span class="keyword">in</span> options) {
+					passed = passed &amp;&amp; width * height * <span class="number">4</span> * options.imageDistance &gt; imageDistance;
+				}
+				<span class="keyword">if</span> (<span class="string">'channelErrors'</span> <span class="keyword">in</span> options) {
+					passed = passed &amp;&amp; width * height * <span class="number">4</span> * options.channelErrors &gt; channelErrors;
+				}
+			}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>If there are no preferences use imageDistance = 0.5</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="keyword">else</span> {
+				passed = width * height * <span class="number">4</span> * <span class="number">0.5</span> &gt; imageDistance;
+			}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Generate the HTML with the template</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			message = template({
+				id: window.qunitImage.id,
+				width: width,
+				imageHeight: height,
+				containerHeight: height + <span class="number">30</span>,
+				numPixels: height * width,
+				numChannels: <span class="number">4</span> * height * width,
+				channelErrors: channelErrors,
+				channelErrorsPercent: (<span class="number">25</span> * channelErrors / (width * height)).toFixed(<span class="number">3</span>),
+				imageDistance: imageDistance,
+				actCanvas: actCanvas.toDataURL(),
+				expCanvas: expCanvas.toDataURL(),
+				diffCanvas: diffCanvas.toDataURL()
+			});
+
+			window.qunitImage.tests.push({
+				id: window.qunitImage.id,
+				width: width,
+				height: height,
+				channelErrors: channelErrors,
+				imageDistance: imageDistance,
+				actual: {
+					canvas: actCanvas,
+					ctx: actCtx,
+					data: actData
+				},
+				expected: {
+					canvas: expCanvas,
+					ctx: expCtx,
+					data: expData
+				},
+				diffCanvas: {
+					canvas: diffCanvas,
+					ctx: diffCtx,
+					data: diffData
+				}
+			});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Increase the id counter</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			window.qunitImage.id++;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Pass the results to QUnit</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			QUnit.config.current.assertions.push({
+				result: passed,
+				message: message
+			});
+
+		};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Now let&#39;s load the images/canvas elements
+First the actual image (the one to be tested)</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>convert SVG object to strings</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">if</span> (actual.toString() === <span class="string">'[object SVGSVGElement]'</span>) {
+			actual = (<span class="keyword">new</span> XMLSerializer()).serializeToString(actual);
+		}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Load images given by path or with a data url
+and draw them on a canvas.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">if</span> (<span class="keyword">typeof</span> actual === <span class="string">'string'</span>) {
+
+			actImage = <span class="keyword">new</span> Image();
+			actImage.onload = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+				actCanvas.height = height;
+				actCanvas.width = width;
+				actCtx = actCanvas.getContext(<span class="string">'2d'</span>);
+				actCtx.drawImage(actImage, <span class="number">0</span>, <span class="number">0</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Only start the tester if both images are loaded</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>				<span class="keyword">if</span> (allImagesLoaded) {
+					<span class="keyword">if</span> (QUnit.config.semaphore !== <span class="number">0</span>) {
+						QUnit.start();
+					}
+					tester();
+				}
+				<span class="keyword">else</span> {
+					allImagesLoaded = <span class="literal">true</span>;
+				}
+			};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Convert an SVG string to a data url</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="keyword">if</span> (actual.match(<span class="regexp">/^&lt;svg/</span>)) {
+				actual = <span class="string">'data:image/svg+xml;base64,'</span> + btoa(actual);
+			}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Start loading the image</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			actImage.src = actual;
+		}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>If the image is given as canvas we don&#39;t need to load something</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">else</span> <span class="keyword">if</span> (actual.toString() === <span class="string">'[object HTMLCanvasElement]'</span>) {
+			actCanvas = actual;
+			actCtx = actCanvas.getContext(<span class="string">'2d'</span>);			
+
+			<span class="keyword">if</span> (allImagesLoaded) {
+				<span class="keyword">if</span> (QUnit.config.semaphore !== <span class="number">0</span>) {
+					QUnit.start();
+				}
+				tester();
+			}
+			<span class="keyword">else</span> {
+				allImagesLoaded = <span class="literal">true</span>;
+			}
+		}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Notify the user that an unsupported argument has been passed as first argument</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">else</span> {
+			QUnit.start();
+			QUnit.config.current.assertions.push({
+				result: <span class="literal">false</span>,
+				message: <span class="string">'Expected string, Canvas or SVG element in the "actual" argument but found: '</span> + 
+					Object.prototype.toString.call(actual).slice(<span class="number">8</span>, -<span class="number">1</span>)
+			});
+		}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>And the expected image
+Everything is the same as above</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">if</span> (expected.toString() === <span class="string">'[object SVGSVGElement]'</span>) {
+			expected = (<span class="keyword">new</span> XMLSerializer()).serializeToString(expected);
+		}
+
+		<span class="keyword">if</span> (<span class="keyword">typeof</span> expected === <span class="string">'string'</span>) {
+			expImage = <span class="keyword">new</span> Image();
+			expImage.onload = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+				expCanvas.height = height;
+				expCanvas.width = width;
+				expCtx = expCanvas.getContext(<span class="string">'2d'</span>);
+				expCtx.drawImage(expImage, <span class="number">0</span>, <span class="number">0</span>);
+
+				<span class="keyword">if</span> (allImagesLoaded) {
+					<span class="keyword">if</span> (QUnit.config.semaphore !== <span class="number">0</span>) {
+						QUnit.start();
+					}
+					tester();
+				}
+				<span class="keyword">else</span> {
+					allImagesLoaded = <span class="literal">true</span>;
+				}
+			};
+			<span class="keyword">if</span> (expected.match(<span class="regexp">/^&lt;svg/</span>)) {
+				expected = <span class="string">'data:image/svg+xml;base64,'</span> + btoa(expected);
+			}
+			expImage.src = expected;
+		}
+
+		<span class="keyword">else</span> <span class="keyword">if</span> (expected.toString() === <span class="string">'[object HTMLCanvasElement]'</span>) {
+			expCanvas = expected;
+			expCtx = expCanvas.getContext(<span class="string">'2d'</span>);
+
+			<span class="keyword">if</span> (allImagesLoaded) {
+				<span class="keyword">if</span> (QUnit.config.semaphore !== <span class="number">0</span>) {
+					QUnit.start();
+				}
+				tester();
+			}
+			<span class="keyword">else</span> {
+				allImagesLoaded = <span class="literal">true</span>;
+			}
+		}
+
+		<span class="keyword">else</span> {
+			QUnit.config.current.assertions.push({
+				result: <span class="literal">false</span>,
+				message: <span class="string">'Expected string, Canvas or SVG element in the "expected" argument but found: '</span> + 
+					Object.prototype.toString.call(expected).slice(<span class="number">8</span>, -<span class="number">1</span>)
+			});
+		}
+
+	}
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Register some event handlers for making the image comparison interactive
+They are running after QUnit is completely done.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>QUnit.done(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+
+	Array.prototype.forEach.call(
+		document.getElementsByClassName(<span class="string">'qunit-image-select'</span>),
+		<span class="function"><span class="keyword">function</span> <span class="params">(elem)</span> {</span>
+			elem.addEventListener(<span class="string">'change'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(evt)</span> {</span>
+				<span class="keyword">var</span> wrapper = evt.target.parentElement.nextElementSibling;
+
+				wrapper.getElementsByClassName(<span class="string">'qunit-image-isVisible'</span>)[<span class="number">0</span>].classList.remove(<span class="string">'qunit-image-isVisible'</span>);
+				wrapper.children[evt.target.value].classList.add(<span class="string">'qunit-image-isVisible'</span>);
+			});
+		}
+	);
+
+	Array.prototype.forEach.call(
+		document.getElementsByClassName(<span class="string">'qunit-image-range-clip'</span>),
+		<span class="function"><span class="keyword">function</span> <span class="params">(elem)</span> {</span>
+			elem.addEventListener(<span class="string">'input'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(evt)</span> {</span>
+				evt.target.nextElementSibling.children[<span class="number">0</span>].style.setProperty(<span class="string">'clip'</span>, <span class="string">'rect(0px, 300px, 300px, '</span> + evt.target.value + <span class="string">'px)'</span>);
+				evt.target.nextElementSibling.children[<span class="number">1</span>].style.setProperty(<span class="string">'clip'</span>, <span class="string">'rect(0px, '</span> + evt.target.value + <span class="string">'px, 300px, 0px)'</span>);
+			});
+		}
+	);
+
+	Array.prototype.forEach.call(
+		document.getElementsByClassName(<span class="string">'qunit-image-range-opacity'</span>),
+		<span class="function"><span class="keyword">function</span> <span class="params">(elem)</span> {</span>
+			elem.addEventListener(<span class="string">'input'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(evt)</span> {</span>
+				evt.target.nextElementSibling.children[<span class="number">0</span>].style.setProperty(<span class="string">'opacity'</span>, <span class="number">1</span> - evt.target.value);
+				evt.target.nextElementSibling.children[<span class="number">1</span>].style.setProperty(<span class="string">'opacity'</span>, evt.target.value);
+			});
+		}
+	);
+
+	Array.prototype.forEach.call(
+		document.getElementsByClassName(<span class="string">'qunit-image-img'</span>),
+		<span class="function"><span class="keyword">function</span> <span class="params">(elem, index)</span> {</span>
+			elem.addEventListener(<span class="string">'mouseover'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(evt)</span> {</span>
+				<span class="keyword">var</span> id = evt.target.getAttribute(<span class="string">'data-id'</span>),
+						wrapper = document.getElementById(<span class="string">'qunit-image-pixelComparison-'</span> + id);
+
+				wrapper.children[<span class="number">0</span>].style.setProperty(<span class="string">'display'</span>, <span class="string">'none'</span>);
+				wrapper.children[<span class="number">1</span>].style.setProperty(<span class="string">'display'</span>, <span class="string">'block'</span>);
+			}, <span class="literal">false</span>);
+		}
+	);
+
+	Array.prototype.forEach.call(
+		document.getElementsByClassName(<span class="string">'qunit-image-img'</span>),
+		<span class="function"><span class="keyword">function</span> <span class="params">(elem, index)</span> {</span>
+			elem.addEventListener(<span class="string">'mouseout'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(evt)</span> {</span>
+				<span class="keyword">var</span> id = evt.target.getAttribute(<span class="string">'data-id'</span>),
+						wrapper = document.getElementById(<span class="string">'qunit-image-pixelComparison-'</span> + id);
+
+				wrapper.children[<span class="number">0</span>].style.setProperty(<span class="string">'display'</span>, <span class="string">'block'</span>);
+				wrapper.children[<span class="number">1</span>].style.setProperty(<span class="string">'display'</span>, <span class="string">'none'</span>);
+			}, <span class="literal">false</span>);
+		}
+	);
+
+
+
+
+	Array.prototype.forEach.call(
+		document.getElementsByClassName(<span class="string">'qunit-image-img'</span>),
+		<span class="function"><span class="keyword">function</span> <span class="params">(elem, index)</span> {</span>
+			elem.addEventListener(<span class="string">'mousemove'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(evt)</span> {</span>
+
+				<span class="keyword">var</span> id = evt.target.getAttribute(<span class="string">'data-id'</span>),
+						wrapper = document.getElementById(<span class="string">'qunit-image-pixelComparison-'</span> + id),
+						test = window.qunitImage.tests[id],
+						x = <span class="string">'offsetX'</span> <span class="keyword">in</span> evt ? evt.offsetX : evt.layerX,
+						y = <span class="string">'offsetY'</span> <span class="keyword">in</span> evt ? evt.offsetY : evt.layerY,
+						actData = test.actual.ctx.getImageData(x, y, <span class="number">1</span>, <span class="number">1</span>).data,
+						expData = test.expected.ctx.getImageData(x, y, <span class="number">1</span>, <span class="number">1</span>).data;
+
+				wrapper.getElementsByClassName(<span class="string">'qunit-image-xCoordinate'</span>)[<span class="number">0</span>].innerHTML = x;
+				wrapper.getElementsByClassName(<span class="string">'qunit-image-yCoordinate'</span>)[<span class="number">0</span>].innerHTML = y;
+
+
+				wrapper.getElementsByClassName(<span class="string">'qunit-image-table-rAct'</span>)[<span class="number">0</span>].innerHTML = actData[<span class="number">0</span>];
+				wrapper.getElementsByClassName(<span class="string">'qunit-image-table-gAct'</span>)[<span class="number">0</span>].innerHTML = actData[<span class="number">1</span>];
+				wrapper.getElementsByClassName(<span class="string">'qunit-image-table-bAct'</span>)[<span class="number">0</span>].innerHTML = actData[<span class="number">2</span>];
+				wrapper.getElementsByClassName(<span class="string">'qunit-image-table-aAct'</span>)[<span class="number">0</span>].innerHTML = actData[<span class="number">3</span>];
+
+				wrapper.getElementsByClassName(<span class="string">'qunit-image-table-rExp'</span>)[<span class="number">0</span>].innerHTML = expData[<span class="number">0</span>];
+				wrapper.getElementsByClassName(<span class="string">'qunit-image-table-gExp'</span>)[<span class="number">0</span>].innerHTML = expData[<span class="number">1</span>];
+				wrapper.getElementsByClassName(<span class="string">'qunit-image-table-bExp'</span>)[<span class="number">0</span>].innerHTML = expData[<span class="number">2</span>];
+				wrapper.getElementsByClassName(<span class="string">'qunit-image-table-aExp'</span>)[<span class="number">0</span>].innerHTML = expData[<span class="number">3</span>];
+
+
+				wrapper.getElementsByClassName(<span class="string">'qunit-image-table-act'</span>)[<span class="number">0</span>]
+					.style.setProperty(<span class="string">'background'</span>, <span class="string">'rgba('</span> + actData[<span class="number">0</span>] + <span class="string">','</span> + actData[<span class="number">1</span>] + <span class="string">','</span> +
+						actData[<span class="number">2</span>] + <span class="string">','</span> + actData[<span class="number">3</span>] + <span class="string">')'</span>);
+				wrapper.getElementsByClassName(<span class="string">'qunit-image-table-exp'</span>)[<span class="number">0</span>]
+					.style.setProperty(<span class="string">'background'</span>, <span class="string">'rgba('</span> + expData[<span class="number">0</span>] + <span class="string">','</span> + expData[<span class="number">1</span>] + <span class="string">','</span> +
+						expData[<span class="number">2</span>] + <span class="string">','</span> + expData[<span class="number">3</span>] + <span class="string">')'</span>);
+			}, <span class="literal">false</span>);
+		}
+	);
+
+
+});})()</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

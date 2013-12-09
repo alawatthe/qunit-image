@@ -166,7 +166,7 @@ QUnit.extend(QUnit.assert, {
 			};
 
 			// Convert an SVG string to a data url
-			if (actual.startsWith('<svg')) {
+			if (actual.match(/^<svg/)) {
 				actual = 'data:image/svg+xml;base64,' + btoa(actual);
 			}
 
@@ -226,7 +226,7 @@ QUnit.extend(QUnit.assert, {
 					allImagesLoaded = true;
 				}
 			};
-			if (expected.startsWith('<svg')) {
+			if (expected.match(/^<svg/)) {
 				expected = 'data:image/svg+xml;base64,' + btoa(expected);
 			}
 			expImage.src = expected;
